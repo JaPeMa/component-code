@@ -53,13 +53,12 @@ public class ConnectMySQL implements Serializable{
 		propertyChangeListener.addPropertyChangeListener(l);
 	}
 	
-	public void executeQuery(String query) {
+	public List<List<String>> executeQuery(String query) {
 		Date queryMoment = Calendar.getInstance().getTime();
 		QueryType queryType = QueryType.valueOf(query.split(" ")[0].toUpperCase());
 		switch (queryType) {
 			case SELECT:
-				select(query, queryMoment);
-				break;
+				return select(query, queryMoment);
 				
 			case INSERT:
 				insert(query, queryMoment);
@@ -79,7 +78,7 @@ public class ConnectMySQL implements Serializable{
 			default:
 				break;
 			}
-		
+		return null;
 	}
 	
 	public List<List<String>> select(String query, Date date) {
